@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import api from "@/lib/axios";
 import {
@@ -14,6 +14,14 @@ import {
 const OTP_LENGTH = 6;
 
 export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: "center", padding: "20px" }}>Loading...</div>}>
+      <VerifyOtpContent />
+    </Suspense>
+  );
+}
+
+function VerifyOtpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";

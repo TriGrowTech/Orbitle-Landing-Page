@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   AuthCard,
@@ -14,6 +14,14 @@ import {
 } from "@/components/auth-ui";
 
 export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: "center", padding: "20px" }}>Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
+  );
+}
+
+function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") ?? "";
